@@ -101,6 +101,7 @@ const data = [
             <th>Имя</th>
             <th>Фамилия</th>
             <th>Телефон</th>
+            <th></th>
         </tr>
         `)
 
@@ -204,6 +205,10 @@ const data = [
 
         return {
             list: table.tbody,
+            logo,
+            btnAdd: buttonGroup.btns[0],
+            formOverlay: form.overlay,
+            form: form.form,
         }
     }
 
@@ -223,32 +228,66 @@ const data = [
         tdSurname.textContent = surname;
 
         const tdPhone = document.createElement('td');
+
+        const tdEdit = document.createElement('td');
+        const editBtn = document.createElement('button');
+        editBtn.textContent = 'редактировать';
+        editBtn.className = 'editBtn';
+        tdEdit.append(editBtn);
+
         const phoneLink = document.createElement('a');
         tdPhone.append(phoneLink);
         phoneLink.href = `tel ${phone}`;
-        phoneLink.textContent = phone
+        phoneLink.textContent = phone;
+        tr.phoneLink = phoneLink;
+        tr.append(tdDel, tdName, tdSurname, tdPhone, tdEdit);
 
-        tr.append(tdDel, tdName, tdSurname, tdPhone)
-
-        return tr
+        return tr;
     }
 
     const renderContacts  = (elem, data) => {
         const allRow = data.map(creatRow);
-
         elem.append(...allRow);
+        return allRow;
     }
 
+    const hoverRow = (allRow, logo) => {
+        allRow.forEach(contact => {
+            const text = logo.textContent;
+            contact.addEventListener('mouseenter', () => {
+                logo.textContent = contact.phoneLink.textContent;
+            });
+
+            contact.addEventListener('mouseleave', () => {
+                logo.textContent = text;
+            })
+        });
+    }
 
     const init = (selectorApp, title) => {
         const app = document.querySelector(selectorApp);
-       const  phonebook =  renderPhoneBook(app, 'Aнтон');
+        const  phonebook =  renderPhoneBook(app, title);
 
-       const {list} = phonebook;
-         renderContacts(list, data);
+        const {list, logo, btnAdd, formOverlay, form} = phonebook;
+
+         const allRow = renderContacts(list, data);
         //функционал
+        hoverRow(allRow, logo);
+
+        btnAdd.addEventListener('click', () => {
+            formOverlay.classList.add('is-visible')
+        });
+
+        
+
+        formOverlay.addEventListener('click', (e) => {
+            const target = e.target;
+            if(target === formOverlay || target.closest('.close')){
+                formOverlay.classList.remove('is-visible');
+            };
+        })
     }
 
-
+    console.dir(Object);
     window.phoneBookInit = init;
 }
