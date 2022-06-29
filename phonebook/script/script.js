@@ -81,9 +81,9 @@ const data = [
             return button;
         })
 
-        console.log(btns)
+        // console.log(btns)
         btnWrapper.append(...btns);
-        console.log('btnWrapper: ', btnWrapper);
+        // console.log('btnWrapper: ', btnWrapper);
         return {
             btnWrapper,
             btns
@@ -98,8 +98,8 @@ const data = [
         thead.insertAdjacentHTML('beforeend', `
         <tr>
             <th class = 'delete' ></th>
-            <th>Имя</th>
-            <th>Фамилия</th>
+            <th class = 'thead__name'>Имя</th>
+            <th class = 'thead__surname'>Фамилия</th>
             <th>Телефон</th>
             <th></th>
         </tr>
@@ -109,6 +109,7 @@ const data = [
 
         table.append(thead, tbody);
         table.tbody = tbody;
+        table.thead = thead;
 
         return table;
     }
@@ -205,16 +206,19 @@ const data = [
 
         return {
             list: table.tbody,
+            head: table.thead,
             logo,
             btnAdd: buttonGroup.btns[0],
             formOverlay: form.overlay,
             form: form.form,
+            btnDel: buttonGroup.btns[1],
         }
     }
 
     const creatRow = ({name: firstname, surname, phone}) => {
         const tr = document.createElement('tr');
-
+        tr.classList.add('contact');
+        // console.log( tr.className);
         const tdDel = document.createElement('td');
         tdDel.classList.add('delete');
         const btnDel = document.createElement('button');
@@ -222,9 +226,11 @@ const data = [
         btnDel.classList.add('del-icon');
 
         const tdName = document.createElement('td');
+        tdName.className = 'contact__name';
         tdName.textContent = firstname;
 
         const tdSurname = document.createElement('td');
+        tdSurname.className = 'contact__surname';
         tdSurname.textContent = surname;
 
         const tdPhone = document.createElement('td');
@@ -240,6 +246,8 @@ const data = [
         phoneLink.href = `tel ${phone}`;
         phoneLink.textContent = phone;
         tr.phoneLink = phoneLink;
+        tr.tdName = tdName;
+        tr.tdSurname = tdSurname;
         tr.append(tdDel, tdName, tdSurname, tdPhone, tdEdit);
 
         return tr;
@@ -263,13 +271,56 @@ const data = [
             })
         });
     }
+    
+     const sortTable = (selec) => {
+         const tbody = document.querySelector('tbody');
+         const rows = tbody.querySelectorAll('tr');
+         let ind = 0;
+            if(selec === '.thead__name') {
+                ind = 1;
+            } else if (selec === '.thead__surname') {
+                ind = 2;
+            }
+        
+            const array = Array.from(rows);
+            console.log(array);
+            array.sort((rowA, rowB) => {
+                const cellA = rowA.childNodes[ind].textContent;
+                const cellB = rowB.childNodes[ind].textContent;
+
+                switch (true) {
+                    case cellA > cellB: return 1;
+                    case cellA < cellB: return -1;
+                    case cellA === cellB: return 0;
+                }
+            });
+            console.log(array);
+
+            tbody.childNodes.forEach((tr) => {
+                tr.remove();
+            });
+            array.forEach((elem) => {
+                tbody.append(elem);
+            })
+            
+     }
+      
 
     const init = (selectorApp, title) => {
         const app = document.querySelector(selectorApp);
         const  phonebook =  renderPhoneBook(app, title);
 
-        const {list, logo, btnAdd, formOverlay, form} = phonebook;
-
+        const {
+            list, 
+            logo, 
+            btnAdd, 
+            formOverlay, 
+            form,
+            btnDel,
+            head,
+            } = phonebook;
+            
+            console.log('head: ', head);
          const allRow = renderContacts(list, data);
         //функционал
         hoverRow(allRow, logo);
@@ -285,9 +336,31 @@ const data = [
             if(target === formOverlay || target.closest('.close')){
                 formOverlay.classList.remove('is-visible');
             };
+        });
+
+        btnDel.addEventListener('click', () => {
+            document.querySelectorAll('.delete').forEach((del)=> {
+                del.classList.toggle('is-visible');
+            });
         })
+
+        list.addEventListener('click', (e) => {
+           if(e.target.closest('.del-icon')) {
+                e.target.closest('.contact').remove();
+            }
+        });
+        
+        const headName = document.querySelector('.thead__name');
+        const headSurname = document.querySelector('.thead__surname');
+         headName.addEventListener('click', () => {
+             sortTable('.thead__name');
+         });
+
+         headSurname.addEventListener('click', () => {
+             sortTable('.thead__surname');
+         })
     }
 
-    console.dir(Object);
+        
     window.phoneBookInit = init;
 }
