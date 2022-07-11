@@ -25,9 +25,45 @@ const data = [
 
 
 {
-  const addContactData = (contact) => {
-    data.push(contact);
+/* применить setStorage вместо addContactData*/
+
+  const getStorage = (key) => {
+    let result;
+    try {
+      result = JSON.parse(localStorage.getItem(key));
+    } catch {
+      result = localStorage.getItem(key);
+    }
+
+    switch (result) {
+      case undefined:
+        return [];
+        break;
+      default:
+        return result;
+        break;
+    }
   };
+
+  const setStorage = (key, newCont) => {
+    const data = getStorage(key);
+    data.push(newCont);
+    window.localStorage.removeItem('data');
+    window.localStorage.setItem('data', JSON.stringify(data));
+  };
+
+
+  const removeStorage = (phoneNumber) => {
+    const data = getStorage('data');
+
+    const newData = data.filter((elem) => phoneNumber !== elem.phone);
+
+    window.localStorage.removeItem('data');
+    window.localStorage.setItem('data', JSON.stringify(newData));
+  };
+  removeStorage('+79514545454');
+
+
   const createContainer = () => {
     const container = document.createElement('div');
     container.classList.add('container');
@@ -100,7 +136,7 @@ const data = [
             <th class = 'delete' ></th>
             <th class = 'thead__name'>Имя</th>
             <th class = 'thead__surname'>Фамилия</th>
-            <th>Телефон</th>
+            <th class = 'thead__surname'>Телефон</th>
             <th></th>
         </tr>
         `);
@@ -224,8 +260,10 @@ const data = [
     tdSurname.textContent = surname;
 
     const tdPhone = document.createElement('td');
+    tdPhone.className = 'contact__phone';
 
     const tdEdit = document.createElement('td');
+    tdEdit.className = 'contact__edit';
     const editBtn = document.createElement('button');
     editBtn.textContent = 'редактировать';
     editBtn.className = 'editBtn';
@@ -243,7 +281,8 @@ const data = [
     return tr;
   };
 
-  const renderContacts = (elem, data) => {
+  const renderContacts = (elem) => {
+    const data = JSON.parse(localStorage.getItem('data'));
     const allRow = data.map(creatRow);
     elem.append(...allRow);
     return allRow;
@@ -273,7 +312,7 @@ const data = [
     }
 
     const array = Array.from(rows);
-    console.log(array);
+
     array.sort((rowA, rowB) => {
       const cellA = rowA.childNodes[ind].textContent;
       const cellB = rowB.childNodes[ind].textContent;
@@ -284,7 +323,6 @@ const data = [
         case cellA === cellB: return 0;
       }
     });
-    console.log(array);
 
     tbody.childNodes.forEach((tr) => {
       tr.remove();
@@ -326,6 +364,11 @@ const data = [
     list.addEventListener('click', (e) => {
       if (e.target.closest('.del-icon')) {
         e.target.closest('.contact').remove();
+
+        const phoneData = e.target.closest('.contact').childNodes[3].textContent;
+
+        removeStorage(phoneData);
+
         const text = 'Телефонный справочник Aнтон';
         const logo = document.querySelector('.logo');
         logo.textContent = text;
@@ -349,19 +392,18 @@ const data = [
     list.append(creatRow(contact));
   };
   const formControl = (form, list, closeModal) => {
-    console.log('form: ', form);
     form.addEventListener('submit', e => {
       e.preventDefault();
 
       const formData = new FormData(e.target);
       const newContact = Object.fromEntries(formData);
       addContactPage(newContact, list);
-      addContactData(newContact);
-      console.log(data);
+      setStorage('data', newContact);
       form.reset();
       closeModal();
     });
   };
+
 
   const init = (selectorApp, title) => {
     const app = document.querySelector(selectorApp);
