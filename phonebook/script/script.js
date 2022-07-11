@@ -327,10 +327,19 @@ const data = [
 
     tbody.childNodes.forEach((tr) => {
       tr.remove();
+    //   localStorage.removeItem('data');
     });
+    const newData = [];
+
     array.forEach((elem) => {
       tbody.append(elem);
+
+      newData.push({name: elem.tdName.innerHTML, surname: elem.tdSurname.innerHTML,
+        phone: elem.phoneLink.innerHTML});
     });
+
+    window.localStorage.removeItem('data');
+    window.localStorage.setItem('data', JSON.stringify(newData));
   };
 
   const modalControl = (btnAdd, formOverlay) => {
