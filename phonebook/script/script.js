@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 /* eslint-disable eol-last */
 'use strict';
 const data = [
@@ -41,6 +42,7 @@ const data = [
         break;
       default:
         return result;
+        // eslint-disable-next-line no-unreachable
         break;
     }
   };
@@ -51,7 +53,6 @@ const data = [
     window.localStorage.removeItem('data');
     window.localStorage.setItem('data', JSON.stringify(data));
   };
-
 
   const removeStorage = (phoneNumber) => {
     const data = getStorage('data');
