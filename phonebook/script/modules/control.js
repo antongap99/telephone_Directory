@@ -1,6 +1,7 @@
-import setStorage from './serviceStorage.js';
-import removeStorage from  './serviceStorage.js';
-import creatRow from './createElement.js';
+import storage from './serviceStorage.js';
+const {setStorage, removeStorage,} = storage;
+import create from './createElement.js';
+const {creatRow} = create;
 import './sort.js';
 
 
