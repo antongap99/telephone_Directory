@@ -1,5 +1,6 @@
 
 import getStorage from './modules/serviceStorage.js';
+
 import hoverRow from './modules/createElement.js';
 import renderPhoneBook from './modules/render.js';
 import renderContacts from './modules/render.js';
@@ -10,7 +11,7 @@ import formControl from "./modules/control.js"
 
 
 
-export const init = (selectorApp, title) => {
+ const init = (selectorApp, title) => {
   const app = document.querySelector(selectorApp);
 
   const {
@@ -30,6 +31,10 @@ export const init = (selectorApp, title) => {
   sortControl();
   formControl(form, list, closeModal);
   };
+
+  window.phoneBookInit = init;
+
+
 
 
 
