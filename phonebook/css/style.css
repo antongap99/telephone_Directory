@@ -3,11 +3,20 @@ body {
 }
 
 .header {
+  position: fixed;
+  right: 0;
+  left:  0;
+  top: 0;
   background-color: #3E5E93;
   color: #fff;
   margin-bottom: 40px;
   padding: 20px 0;
   text-align: center;
+  z-index: 10;
+}
+
+.main {
+  margin-top: 110px;
 }
 
 .logo {
@@ -101,7 +110,7 @@ body {
 
 .form-overlay.is-visible .form {
   opacity: 1;
-  top: 40px;
+  top: 130px;
 }
 
 .close {
@@ -149,3 +158,14 @@ body {
   background-color: #0069d9;
   border-color: #0062cc;
 }
+
+.table {
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+.table_list{
+  margin:  0 auto;
+  padding-bottom: 40px;
+}
+

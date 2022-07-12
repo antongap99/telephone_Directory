@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 /* eslint-disable eol-last */
 'use strict';
 const data = [
@@ -94,14 +95,13 @@ const data = [
   const createMain = () => {
     const main = document.createElement('main');
     const mainContainer = document.createElement('div');
-
+    main.className = 'main';
     main.append(mainContainer);
     main.mainContainer = mainContainer;
 
     // main.classList.add();
     return main;
   };
-
 
   const createBtnGroup = (params) => {
     const btnWrapper = document.createElement('div');
@@ -208,6 +208,7 @@ const data = [
     const header = createHeader();
     const logo = creatLogo(title);
     const main = createMain();
+    const tableWrapper = createContainer();
     const buttonGroup = createBtnGroup(
         [{
           className: 'btn btn-primary mr-4',
@@ -225,14 +226,16 @@ const data = [
     const {form, overlay} = createForm();
     const footer = creatfooter('Антон');
     // const copyRight = creatCopyRightElem('Антон');
-
+    tableWrapper.append(table);
+    tableWrapper.table = table;
+    tableWrapper.className = ' table_list';
     main.mainContainer.append(buttonGroup.btnWrapper);
     header.headerConatainer.append(logo);
     // footer.footerContainer.append(copyRight);
-    selectorApp.append(header, main, table, overlay, footer);
+    selectorApp.append(header, main, tableWrapper, overlay, footer);
     return {
-      list: table.tbody,
-      head: table.thead,
+      list: tableWrapper.table.tbody,
+      head: tableWrapper.table.thead,
       logo,
       btnAdd: buttonGroup.btns[0],
       formOverlay: overlay,
