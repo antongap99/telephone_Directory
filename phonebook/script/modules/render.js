@@ -58,6 +58,7 @@ const {createContainer,
     let data;
     try {
        data =JSON.parse(localStorage.getItem('data'));
+       if(!data) data = [];
     } catch{
        data = [];
       localStorage.setItem('data', JSON.stringify([]));
