@@ -1,6 +1,6 @@
 
 
-const sortTable = (selec) => {
+export const sortTable = (selec) => {
   const tbody = document.querySelector('tbody');
   const rows = tbody.querySelectorAll('tr');
   let ind = 0;
@@ -40,4 +40,4 @@ const sortTable = (selec) => {
   window.localStorage.setItem('data', JSON.stringify(newData));
 };
 
-export default sortTable;
+

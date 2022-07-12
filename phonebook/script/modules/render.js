@@ -1,6 +1,6 @@
 
 
-import * as elements from './createElement.js';
+import elements from './createElement.js';
 
 const {createContainer,
   createHeader,
@@ -13,7 +13,7 @@ const {createContainer,
   creatRow,
 } = elements;
 
-const renderPhoneBook = (selectorApp, title) => {
+  const renderPhoneBook = (selectorApp, title) => {
   const header = createHeader();
   const logo = creatLogo(title);
   const main = createMain();
@@ -53,15 +53,15 @@ const renderPhoneBook = (selectorApp, title) => {
   };
 };
 
-
-const renderContacts = (elem) => {
+  const renderContacts = (elem) => {
   const data = JSON.parse(localStorage.getItem('data'));
   const allRow = data.map(creatRow);
   elem.append(...allRow);
   return allRow;
 };
 
-export default {
+
+export default{
   renderPhoneBook,
   renderContacts,
-};
+}

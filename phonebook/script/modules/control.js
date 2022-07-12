@@ -1,7 +1,7 @@
 import setStorage from './serviceStorage.js';
 import removeStorage from  './serviceStorage.js';
 import creatRow from './createElement.js';
-import sortTable from './sort.js';
+import './sort.js';
 
 
 const modalControl = (btnAdd, formOverlay) => {

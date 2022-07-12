@@ -1,17 +1,14 @@
 
-import getStorage from './modules/serviceStorage.js';
+import storage from './modules/serviceStorage.js';
+const {setStorage,removeStorage, getStorage,} = storage;
+import hover from './modules/createElement.js';
+const {hoverRow} = hover;
+import render from './modules/render.js';
+const {renderPhoneBook, renderContacts,} = render;
+import control from "./modules/control.js";
+const {modalControl, deleteControl, sortControl, formControl,} = control;
 
-import hoverRow from './modules/createElement.js';
-import renderPhoneBook from './modules/render.js';
-import renderContacts from './modules/render.js';
-import modalControl from "./modules/control.js"
-import deleteControl from "./modules/control.js"
-import sortControl from "./modules/control.js"
-import formControl from "./modules/control.js"
-
-
-
- const init = (selectorApp, title) => {
+export const init = (selectorApp, title) => {
   const app = document.querySelector(selectorApp);
 
   const {
@@ -32,7 +29,7 @@ import formControl from "./modules/control.js"
   formControl(form, list, closeModal);
   };
 
-  window.phoneBookInit = init;
+//window.phoneBookInit = init;
 
 
 

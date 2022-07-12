@@ -13,9 +13,10 @@
   <link rel="stylesheet" href="phonebook/css/style.css">
   <script  type="module" src="./phonebook/script/script.js"></script>
   <script type="module">
+    import {init as phoneBookInit} from './phonebook/script/script.js';
       document.addEventListener('DOMContentLoaded', () => {
-      phoneBookInit("#app", 'Aнтон');
-   });
+          phoneBookInit("#app", 'Aнтон');
+      });
   </script>
 </head>
 <body>
