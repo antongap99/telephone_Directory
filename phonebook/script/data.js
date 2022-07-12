@@ -1,5 +1,5 @@
 
-const data = [
+  const data = [
     {
       name: 'Иван',
       surname: 'Петров',
@@ -21,3 +21,5 @@ const data = [
       phone: '+79876543210',
     },
   ];
+
+  export default data;

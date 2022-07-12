@@ -8,6 +8,7 @@ const {renderPhoneBook, renderContacts,} = render;
 import control from "./modules/control.js";
 const {modalControl, deleteControl, sortControl, formControl,} = control;
 
+
 export const init = (selectorApp, title) => {
   const app = document.querySelector(selectorApp);
 

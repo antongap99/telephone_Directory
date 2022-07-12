@@ -1,6 +1,7 @@
 
 
 import elements from './createElement.js';
+import  '../data.js';
 
 const {createContainer,
   createHeader,
@@ -54,7 +55,14 @@ const {createContainer,
 };
 
   const renderContacts = (elem) => {
-  const data = JSON.parse(localStorage.getItem('data'));
+    let data;
+    try {
+       data =JSON.parse(localStorage.getItem('data'));
+    } catch{
+       data = [];
+      localStorage.setItem('data', JSON.stringify([]));
+    }
+
   const allRow = data.map(creatRow);
   elem.append(...allRow);
   return allRow;

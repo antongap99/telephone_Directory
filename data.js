@@ -22,3 +22,5 @@ const data = [
     phone: '+79876543210',
   },
 ];
+
+export default data;
