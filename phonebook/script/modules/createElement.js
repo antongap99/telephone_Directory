@@ -103,7 +103,7 @@ const createForm = () => {
         </div>
         <div class="form-group">
             <label class="form-label" for= "phone">Телефон</label>
-            <input class="form-input" name = "phone" id = "phone" type = "number" required>
+            <input class="form-input" name = "phone" id = "phone" type = "number" inputmode="tel"  required>
         </div>
         `);
 
