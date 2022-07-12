@@ -1,29 +1,6 @@
 /* eslint-disable no-unreachable */
 /* eslint-disable eol-last */
 'use strict';
-const data = [
-  {
-    name: 'Иван',
-    surname: 'Петров',
-    phone: '+79514545454',
-  },
-  {
-    name: 'Егор',
-    surname: 'Южаков',
-    phone: '+79999999999',
-  },
-  {
-    name: 'Семён',
-    surname: 'Абрамов',
-    phone: '+79800252525',
-  },
-  {
-    name: 'Мария',
-    surname: 'Ширяева',
-    phone: '+79876543210',
-  },
-];
-
 
 {
 /* применить setStorage вместо addContactData*/
@@ -62,7 +39,6 @@ const data = [
     window.localStorage.removeItem('data');
     window.localStorage.setItem('data', JSON.stringify(newData));
   };
-  removeStorage('+79514545454');
 
 
   const createContainer = () => {
@@ -427,7 +403,7 @@ const data = [
       btnDel,
     } = renderPhoneBook(app, title);
 
-    const allRow = renderContacts(list, data);
+    const allRow = renderContacts(list, getStorage('data'));
     const {closeModal} = modalControl(btnAdd, formOverlay);
     // функционал
     hoverRow(allRow, logo);
