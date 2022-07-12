@@ -13,15 +13,7 @@
       result = localStorage.getItem(key);
     }
 
-    switch (result) {
-      case undefined:
-        return [];
-        break;
-      default:
-        return result;
-        // eslint-disable-next-line no-unreachable
-        break;
-    }
+    return result || [];
   };
 
   const setStorage = (key, newCont) => {
