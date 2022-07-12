@@ -1,29 +1,6 @@
 /* eslint-disable no-unreachable */
 /* eslint-disable eol-last */
 'use strict';
-const data = [
-  {
-    name: 'Иван',
-    surname: 'Петров',
-    phone: '+79514545454',
-  },
-  {
-    name: 'Егор',
-    surname: 'Южаков',
-    phone: '+79999999999',
-  },
-  {
-    name: 'Семён',
-    surname: 'Абрамов',
-    phone: '+79800252525',
-  },
-  {
-    name: 'Мария',
-    surname: 'Ширяева',
-    phone: '+79876543210',
-  },
-];
-
 
 {
 /* применить setStorage вместо addContactData*/
@@ -42,6 +19,7 @@ const data = [
         break;
       default:
         return result;
+        // eslint-disable-next-line no-unreachable
         break;
     }
   };
@@ -53,7 +31,6 @@ const data = [
     window.localStorage.setItem('data', JSON.stringify(data));
   };
 
-
   const removeStorage = (phoneNumber) => {
     const data = getStorage('data');
 
@@ -62,7 +39,6 @@ const data = [
     window.localStorage.removeItem('data');
     window.localStorage.setItem('data', JSON.stringify(newData));
   };
-  removeStorage('+79514545454');
 
 
   const createContainer = () => {
@@ -329,10 +305,19 @@ const data = [
 
     tbody.childNodes.forEach((tr) => {
       tr.remove();
+    //   localStorage.removeItem('data');
     });
+    const newData = [];
+
     array.forEach((elem) => {
       tbody.append(elem);
+
+      newData.push({name: elem.tdName.innerHTML, surname: elem.tdSurname.innerHTML,
+        phone: elem.phoneLink.innerHTML});
     });
+
+    window.localStorage.removeItem('data');
+    window.localStorage.setItem('data', JSON.stringify(newData));
   };
 
   const modalControl = (btnAdd, formOverlay) => {
@@ -420,7 +405,7 @@ const data = [
       btnDel,
     } = renderPhoneBook(app, title);
 
-    const allRow = renderContacts(list, data);
+    const allRow = renderContacts(list, getStorage('data'));
     const {closeModal} = modalControl(btnAdd, formOverlay);
     // функционал
     hoverRow(allRow, logo);
