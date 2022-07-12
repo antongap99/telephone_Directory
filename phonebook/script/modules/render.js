@@ -59,6 +59,7 @@ const {createContainer,
     try {
        data =JSON.parse(localStorage.getItem('data'));
        if(!data) data = [];
+       localStorage.setItem('data', JSON.stringify([]));
     } catch{
        data = [];
       localStorage.setItem('data', JSON.stringify([]));
