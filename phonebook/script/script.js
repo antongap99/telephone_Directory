@@ -28,6 +28,7 @@ export const init = (selectorApp, title) => {
   deleteControl(btnDel, list);
   sortControl();
   formControl(form, list, closeModal);
+
   };
 
 //window.phoneBookInit = init;

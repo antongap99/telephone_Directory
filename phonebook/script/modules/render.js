@@ -54,8 +54,7 @@ const {createContainer,
   };
 };
 
-  const renderContacts = (elem) => {
-    let data;
+  const renderContacts = (elem, data) => {
     try {
        data =JSON.parse(localStorage.getItem('data'));
        if(!data) data = [];
