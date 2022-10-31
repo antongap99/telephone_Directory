@@ -14,7 +14,9 @@ body {
   text-align: center;
   z-index: 10;
 }
-
+.btn-wrapper {
+  padding: 15px;
+}
 .main {
   margin-top: 110px;
 }
