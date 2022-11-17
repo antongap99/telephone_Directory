@@ -2,8 +2,6 @@
 
 import elements from './createElement';
 
-
-
 const {
   createImgLogo,
   createContainer,
