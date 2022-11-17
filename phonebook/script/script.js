@@ -6,7 +6,7 @@ const {hoverRow} = hover;
 import render from './modules/render.js';
 const {renderPhoneBook, renderContacts,} = render;
 import control from "./modules/control.js";
-const {modalControl, deleteControl, sortControl, formControl,} = control;
+const {modalControl, deleteControl, sortControl, formControl, editControl} = control;
 
 
 
@@ -26,10 +26,10 @@ export const init = (selectorApp, title) => {
   const {closeModal} = modalControl(btnAdd, formOverlay);
   // функционал
   hoverRow(allRow, logo);
-  deleteControl(btnDel, list);
+  deleteControl(btnDel, list, btnAdd);
   sortControl();
   formControl(form, list, closeModal);
-
+  editControl();
   };
 
 //window.phoneBookInit = init;

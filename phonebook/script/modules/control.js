@@ -1,7 +1,7 @@
 import storage from './serviceStorage.js';
-const {setStorage, removeStorage,} = storage;
+const {setStorage, removeStorage, getStorage} = storage;
 import create from './createElement.js';
-const {creatRow} = create;
+const {creatRow, createEditInput} = create;
 import './sort.js';
 
 
@@ -27,8 +27,13 @@ const modalControl = (btnAdd, formOverlay) => {
   };
 };
 
-const deleteControl = (btnDel, list) => {
-  btnDel.addEventListener('click', () => {
+const deleteControl = (btnDel, list , btnadd) => {
+  btnDel.addEventListener('click', () => { 
+    if(!btnadd.hasAttribute("disabled") ){
+      btnadd.setAttribute("disabled", "disabled");
+    } else {
+      btnadd.removeAttribute("disabled");
+    }
     document.querySelectorAll('.delete').forEach((del) => {
       del.classList.toggle('is-visible');
     });
@@ -64,6 +69,7 @@ const sortControl = () => {
 const addContactPage = (contact, list) => {
   list.append(creatRow(contact));
 };
+
 const formControl = (form, list, closeModal) => {
   form.addEventListener('submit', e => {
     e.preventDefault();
@@ -75,11 +81,99 @@ const formControl = (form, list, closeModal) => {
     form.reset();
     closeModal();
   });
+
 };
+
+const editControl = () => {
+  try {
+    const editBtn = document.querySelector('.editBtn');
+  editBtn.addEventListener('click', (e) => {
+    const editBtn = e.target;
+    const contact = editBtn.parentNode.parentNode;
+    const contactPhone = document.getElementsByClassName('contact__phone')[0];
+    const contactName = document.getElementsByClassName('contact__name')[0];
+    const contactSurname = document.getElementsByClassName('contact__surname')[0];
+
+
+    if(!contactPhone.lastChild.matches('.edit-input')) {
+      const inputPhone 
+        = createEditInput({class: 'edit-input', name: 'phone', type: 'number', inputmode: 'tel', required: 'required'});
+
+      const inputName
+        = createEditInput({class: "form-input", name:"name", type:"text", required: 'required'});
+      const inputSurname
+        = createEditInput({class:"form-input", name:"surname", type:"text", required: 'required'});
+      
+      const contactNameValue = contactName.textContent;
+      
+      contactPhone.append(inputPhone);
+
+      contactName.append(inputName);
+
+      contactSurname.append(inputSurname);
+
+      contactPhone.firstChild.style.display = 'none';
+      contactName.firstChild.style.display = 'none';
+      contactSurname.firstChild.style.display = 'none';
+
+      inputPhone.addEventListener('input', () => {
+        contactPhone.firstChild.textContent = inputPhone.value;
+      });
+
+      inputName.addEventListener('input', () => {
+        contactName.firstChild.textContent = inputName.value;
+      });
+
+      inputSurname.addEventListener('input', () => {
+        contactSurname.firstChild.textContent = inputSurname.value;
+      });
+
+      const inputChangeHandler = (itemProp, contactProp) => {
+        const data =  getStorage('data');
+
+        data.forEach((item) => {
+          if(contactNameValue === item.name){
+            item[itemProp] = contactProp.firstChild.textContent;
+          }
+        });
+
+        localStorage.removeItem('data');
+        localStorage.setItem('data', JSON.stringify(data));
+      }
+
+
+      inputPhone.addEventListener('change', () => {
+        inputChangeHandler('phone', contactPhone)
+      })
+
+      inputName.addEventListener('change', () => {
+        inputChangeHandler('name', contactName)
+      })
+
+      inputSurname.addEventListener('change', () => {
+        inputChangeHandler('surname', contactSurname)
+      })
+
+
+    } else {
+        contactPhone.firstChild.style.display = 'block';
+        contactName.firstChild.style.display = 'block';
+        contactSurname.firstChild.style.display = 'block';
+        contactPhone.lastChild.remove();
+        contactName.lastChild.remove();
+        contactSurname.lastChild.remove();
+    }
+  });
+  } catch (error) {
+    
+  }
+
+}
 
 export default {
   modalControl,
   deleteControl,
   sortControl,
   formControl,
+  editControl,
 };

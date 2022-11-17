@@ -138,6 +138,14 @@ const creatfooter = (nameGaurd) => {
   return footer;
 };
 
+
+const createSpan = (value, className) => {
+  const span = document.createElement('span');
+  span.className = className;
+  span.textContent = value;
+  
+  return span;
+}
 const creatRow = ({name: firstname, surname, phone}) => {
   const tr = document.createElement('tr');
   tr.classList.add('contact');
@@ -149,12 +157,12 @@ const creatRow = ({name: firstname, surname, phone}) => {
   btnDel.classList.add('del-icon');
 
   const tdName = document.createElement('td');
+  tdName.append(createSpan(firstname, 'name'));
   tdName.className = 'contact__name';
-  tdName.textContent = firstname;
 
   const tdSurname = document.createElement('td');
+  tdSurname.append(createSpan(surname, 'surname'));
   tdSurname.className = 'contact__surname';
-  tdSurname.textContent = surname;
 
   const tdPhone = document.createElement('td');
   tdPhone.className = 'contact__phone';
@@ -167,6 +175,7 @@ const creatRow = ({name: firstname, surname, phone}) => {
   tdEdit.append(editBtn);
 
   const phoneLink = document.createElement('a');
+  phoneLink.className = 'phoneLink';
   tdPhone.append(phoneLink);
   phoneLink.href = `tel ${phone}`;
   phoneLink.textContent = phone;
@@ -191,6 +200,16 @@ const hoverRow = (allRow, logo) => {
   });
 };
 
+const createEditInput = (attrs) => {
+  const input = document.createElement('input');
+  const attr = Object.entries(attrs);
+ 
+  for (const key of attr) {
+    input.setAttribute(key[0], key[1]);
+  }
+
+  return input;
+}
 
 export default {
   createContainer,
@@ -203,4 +222,5 @@ export default {
   creatfooter,
   creatRow,
   hoverRow,
+  createEditInput,
 };
