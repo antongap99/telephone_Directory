@@ -156,12 +156,13 @@ const createSpan = (value, className) => {
 const creatRow = ({name: firstname, surname, phone}) => {
   const tr = document.createElement('tr');
   tr.classList.add('contact');
-  // console.log( tr.className);
+
   const tdDel = document.createElement('td');
   tdDel.classList.add('delete');
+
   const btnDel = document.createElement('button');
-  tdDel.append(btnDel);
   btnDel.classList.add('del-icon');
+  tdDel.append(btnDel);
 
   const tdName = document.createElement('td');
   tdName.append(createSpan(firstname, 'name'));
@@ -176,6 +177,7 @@ const creatRow = ({name: firstname, surname, phone}) => {
 
   const tdEdit = document.createElement('td');
   tdEdit.className = 'contact__edit';
+
   const editBtn = document.createElement('button');
   editBtn.textContent = 'редактировать';
   editBtn.className = 'editBtn';
@@ -183,9 +185,10 @@ const creatRow = ({name: firstname, surname, phone}) => {
 
   const phoneLink = document.createElement('a');
   phoneLink.className = 'phoneLink';
-  tdPhone.append(phoneLink);
   phoneLink.href = `tel ${phone}`;
   phoneLink.textContent = phone;
+  tdPhone.append(phoneLink);
+
   tr.phoneLink = phoneLink;
   tr.tdName = tdName;
   tr.tdSurname = tdSurname;
@@ -197,6 +200,7 @@ const creatRow = ({name: firstname, surname, phone}) => {
 const hoverRow = (allRow, logo) => {
   allRow.forEach(contact => {
     const text = logo.textContent;
+    
     contact.addEventListener('mouseenter', () => {
       logo.textContent = contact.phoneLink.textContent;
     });
