@@ -32,7 +32,7 @@ export const init = (selectorApp, title) => {
   editControl();
   };
 
-//window.phoneBookInit = init;
+
 
 
 

@@ -1,0 +1,19 @@
+{
+  "name": "telephone_directory",
+  "version": "1.0.0",
+  "description": "Телефонный справочник",
+  "main": "./phonebook/script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antongap99/telephoone_Directory.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antongap99/telephoone_Directory/issues"
+  },
+  "homepage": "https://github.com/antongap99/telephoone_Directory#readme"
+}
