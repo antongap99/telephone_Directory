@@ -1,11 +1,12 @@
 
 
-import elements from './createElement.js';
-import storage  from './serviceStorage.js';
-const {getStorage} = storage;
-import  '../data.js';
+import elements from './createElement';
 
-const {createContainer,
+
+
+const {
+  createImgLogo,
+  createContainer,
   createHeader,
   creatLogo,
   createMain,
@@ -18,6 +19,7 @@ const {createContainer,
 
   const renderPhoneBook = (selectorApp, title) => {
   const header = createHeader();
+  const imageLogo = createImgLogo();
   const logo = creatLogo(title);
   const main = createMain();
   const tableWrapper = createContainer();
@@ -42,7 +44,7 @@ const {createContainer,
   tableWrapper.table = table;
   tableWrapper.className = ' table_list';
   main.mainContainer.append(buttonGroup.btnWrapper);
-  header.headerConatainer.append(logo);
+  header.headerConatainer.append(imageLogo, logo);
   // footer.footerContainer.append(copyRight);
   selectorApp.append(header, main, tableWrapper, overlay, footer);
   return {

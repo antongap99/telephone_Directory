@@ -1,16 +1,21 @@
 
-import storage from './modules/serviceStorage.js';
-const {setStorage,removeStorage, getStorage,} = storage;
-import hover from './modules/createElement.js';
+import storage from './modules/serviceStorage';
+const { getStorage,} = storage;
+import hover from './modules/createElement';
 const {hoverRow} = hover;
-import render from './modules/render.js';
+import render from './modules/render';
 const {renderPhoneBook, renderContacts,} = render;
-import control from "./modules/control.js";
+import control from "./modules/control";
 const {modalControl, deleteControl, sortControl, formControl, editControl} = control;
 
+// для отслеживания файла в режиме development
+// import '../index.html'; 
+
+import '../scss/index.scss';
 
 
-export const init = (selectorApp, title) => {
+
+ const init = (selectorApp, title) => {
   const app = document.querySelector(selectorApp);
 
   const {
@@ -34,7 +39,9 @@ export const init = (selectorApp, title) => {
 
 
 
-
+  document.addEventListener('DOMContentLoaded', () => {
+    init("#app", 'Aнтон');
+  });
 
 
 

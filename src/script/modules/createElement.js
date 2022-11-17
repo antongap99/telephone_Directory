@@ -1,3 +1,10 @@
+import image from '../../img/icon.svg';
+
+ const createImgLogo = () => {
+  const img = document.createElement('img');
+  img.src = image;
+  return img
+}
 
 
 const createContainer = () => {
@@ -212,6 +219,7 @@ const createEditInput = (attrs) => {
 }
 
 export default {
+  createImgLogo,
   createContainer,
   createHeader,
   creatLogo,

@@ -86,84 +86,90 @@ const formControl = (form, list, closeModal) => {
 
 const editControl = () => {
   try {
-    const editBtn = document.querySelector('.editBtn');
-  editBtn.addEventListener('click', (e) => {
-    const editBtn = e.target;
-    const contact = editBtn.parentNode.parentNode;
-    const contactPhone = document.getElementsByClassName('contact__phone')[0];
-    const contactName = document.getElementsByClassName('contact__name')[0];
-    const contactSurname = document.getElementsByClassName('contact__surname')[0];
+    const editBtns = document.querySelectorAll('.editBtn');
 
-
-    if(!contactPhone.lastChild.matches('.edit-input')) {
-      const inputPhone 
-        = createEditInput({class: 'edit-input', name: 'phone', type: 'number', inputmode: 'tel', required: 'required'});
-
-      const inputName
-        = createEditInput({class: "form-input", name:"name", type:"text", required: 'required'});
-      const inputSurname
-        = createEditInput({class:"form-input", name:"surname", type:"text", required: 'required'});
+    const editBtnEventHandler = (e) => {
+      const editBtn = e.target;
+      const contact = editBtn.parentNode.parentNode;
+      const contactPhone = contact.getElementsByClassName('contact__phone')[0];
+      const contactName = contact.getElementsByClassName('contact__name')[0];
+      const contactSurname = contact.getElementsByClassName('contact__surname')[0];
       
-      const contactNameValue = contactName.textContent;
-      
-      contactPhone.append(inputPhone);
-
-      contactName.append(inputName);
-
-      contactSurname.append(inputSurname);
-
-      contactPhone.firstChild.style.display = 'none';
-      contactName.firstChild.style.display = 'none';
-      contactSurname.firstChild.style.display = 'none';
-
-      inputPhone.addEventListener('input', () => {
-        contactPhone.firstChild.textContent = inputPhone.value;
-      });
-
-      inputName.addEventListener('input', () => {
-        contactName.firstChild.textContent = inputName.value;
-      });
-
-      inputSurname.addEventListener('input', () => {
-        contactSurname.firstChild.textContent = inputSurname.value;
-      });
-
-      const inputChangeHandler = (itemProp, contactProp) => {
-        const data =  getStorage('data');
-
-        data.forEach((item) => {
-          if(contactNameValue === item.name){
-            item[itemProp] = contactProp.firstChild.textContent;
-          }
+  
+      if(!contactPhone.lastChild.matches('.edit-input')) {
+        const inputPhone 
+          = createEditInput({class: 'edit-input', name: 'phone', type: 'number', inputmode: 'tel', required: 'required'});
+  
+        const inputName
+          = createEditInput({class: "form-input", name:"name", type:"text", required: 'required'});
+        const inputSurname
+          = createEditInput({class:"form-input", name:"surname", type:"text", required: 'required'});
+        
+        const contactNameValue = contactName.textContent;
+        
+        contactPhone.append(inputPhone);
+  
+        contactName.append(inputName);
+  
+        contactSurname.append(inputSurname);
+  
+        contactPhone.firstChild.style.display = 'none';
+        contactName.firstChild.style.display = 'none';
+        contactSurname.firstChild.style.display = 'none';
+  
+        inputPhone.addEventListener('input', () => {
+          contactPhone.firstChild.textContent = inputPhone.value;
         });
-
-        localStorage.removeItem('data');
-        localStorage.setItem('data', JSON.stringify(data));
+  
+        inputName.addEventListener('input', () => {
+          contactName.firstChild.textContent = inputName.value;
+        });
+  
+        inputSurname.addEventListener('input', () => {
+          contactSurname.firstChild.textContent = inputSurname.value;
+        });
+  
+        const inputChangeHandler = (itemProp, contactProp) => {
+          const data =  getStorage('data');
+  
+          data.forEach((item) => {
+            if(contactNameValue === item.name){
+              item[itemProp] = contactProp.firstChild.textContent;
+            }
+          });
+  
+          localStorage.removeItem('data');
+          localStorage.setItem('data', JSON.stringify(data));
+        }
+  
+  
+        inputPhone.addEventListener('change', () => {
+          inputChangeHandler('phone', contactPhone)
+        })
+  
+        inputName.addEventListener('change', () => {
+          inputChangeHandler('name', contactName)
+        })
+  
+        inputSurname.addEventListener('change', () => {
+          inputChangeHandler('surname', contactSurname)
+        })
+  
+  
+      } else {
+          contactPhone.firstChild.style.display = 'block';
+          contactName.firstChild.style.display = 'block';
+          contactSurname.firstChild.style.display = 'block';
+          contactPhone.lastChild.remove();
+          contactName.lastChild.remove();
+          contactSurname.lastChild.remove();
       }
-
-
-      inputPhone.addEventListener('change', () => {
-        inputChangeHandler('phone', contactPhone)
-      })
-
-      inputName.addEventListener('change', () => {
-        inputChangeHandler('name', contactName)
-      })
-
-      inputSurname.addEventListener('change', () => {
-        inputChangeHandler('surname', contactSurname)
-      })
-
-
-    } else {
-        contactPhone.firstChild.style.display = 'block';
-        contactName.firstChild.style.display = 'block';
-        contactSurname.firstChild.style.display = 'block';
-        contactPhone.lastChild.remove();
-        contactName.lastChild.remove();
-        contactSurname.lastChild.remove();
     }
-  });
+
+    editBtns.forEach(editBtn => {
+      editBtn.addEventListener('click', editBtnEventHandler);
+    })
+ 
   } catch (error) {
     
   }
