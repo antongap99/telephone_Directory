@@ -85,7 +85,6 @@ const formControl = (form, list, closeModal) => {
 };
 
 const editControl = () => {
-  try {
     const editBtns = document.querySelectorAll('.editBtn');
     const editBtnEventHandler = (e) => {
       const editBtn = e.target;
@@ -170,11 +169,6 @@ const editControl = () => {
     editBtns.forEach(editBtn => {
       editBtn.addEventListener('click', editBtnEventHandler);
     })
-
-  } catch (error) {
-    console.log('error: ', error);
-  }
-
 }
 
 export default {
