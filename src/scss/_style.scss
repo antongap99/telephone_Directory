@@ -158,8 +158,14 @@ overflow-x: scroll;
 }
 
 .table_list{
-margin:  0 auto;
+margin: 0 auto;
 padding-bottom: 40px;
+overflow: auto;
+max-width: 100%;
+overflow-x: scroll;
+}
+.table_list::-webkit-scrollbar {
+  display: none;
 }
 
 .contact{
